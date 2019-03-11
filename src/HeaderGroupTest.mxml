@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Declarations>
+		<fx:Component id="headerRenderer">
+			<s:DefaultGridHeaderRenderer/>
+		</fx:Component>
+
+		<fx:Component id="headerColumnSeparator">
+			<s:Line>
+				<s:stroke>
+					<s:SolidColorStroke color="0x696969" weight="1" caps="square"/>
+				</s:stroke>
+			</s:Line>
+		</fx:Component>
+	</fx:Declarations>
+
+	<s:GridColumnHeaderGroup minHeight="21" paddingLeft="1" paddingRight="1" paddingTop="1" columnSeparator="{headerColumnSeparator}" headerRenderer="{headerRenderer}"/>
+</s:Application>

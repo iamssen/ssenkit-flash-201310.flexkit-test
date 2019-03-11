@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Script>
+		<![CDATA[
+			private function toggleState(event:Event):void {
+				currentState=toggler.selected ? "open" : "normal";
+			}
+		]]>
+	</fx:Script>
+
+	<s:states>
+		<s:State name="normal"/>
+		<s:State name="open"/>
+	</s:states>
+
+	<s:layout>
+		<s:VerticalLayout paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5" gap="5" horizontalAlign="left" verticalAlign="top"/>
+	</s:layout>
+
+	<s:HGroup width="100%" paddingRight="30" horizontalAlign="right">
+		<s:Group>
+			<s:ToggleButton id="toggler" label="hello" change="toggleState(event)"/>
+			<s:PopUpAnchor displayPopUp.normal="false" displayPopUp.open="true" includeIn="open" popUpPosition="below" left="0" right="0" top="-15" bottom="-15">
+				<s:Group width="300" height="100">
+					<s:Rect width="100%" height="100%">
+						<s:stroke>
+							<s:SolidColorStroke color="0x000000" weight="3"/>
+						</s:stroke>
+						<s:fill>
+							<s:SolidColor color="0x000000" alpha="0.5"/>
+						</s:fill>
+					</s:Rect>
+				</s:Group>
+			</s:PopUpAnchor>
+		</s:Group>
+	</s:HGroup>
+
+	<s:Group width="100%" height="100%">
+		<s:Rect width="100%" height="100%">
+			<s:fill>
+				<s:SolidColor color="0xeeeeee" color.open="0x00ff00"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+
+</s:Application>

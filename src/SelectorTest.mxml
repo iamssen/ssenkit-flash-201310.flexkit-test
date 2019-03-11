@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:dropdown="ssen.flexkit.dropdown.*" xmlns:dropdown1="ssen.flexkit.components.dropdown.*" xmlns:dropdowns="ssen.flexkit.components.dropdowns.*">
+	<s:layout>
+		<s:VerticalLayout paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5" gap="5" horizontalAlign="left" verticalAlign="top"/>
+	</s:layout>
+
+	<fx:Script>
+		<![CDATA[
+			import spark.layouts.HorizontalAlign;
+			
+			import ssen.common.MathUtils;
+			
+			import test.viewmodels.MultiCategoryViewModel;
+
+			[Bindable]
+			public var model:MultiCategoryViewModel=new MultiCategoryViewModel;
+
+			private function randomLayout(event:MouseEvent):void {
+				var vcase:int=MathUtils.rand(0, 2);
+				var hcase:int=MathUtils.rand(0, 2);
+
+				switch (vcase) {
+					case 0:
+						top.percentHeight=1;
+						bottom.percentHeight=99;
+						break;
+					case 1:
+						top.percentHeight=50;
+						bottom.percentHeight=50;
+						break;
+					default:
+						top.percentHeight=99;
+						bottom.percentHeight=1;
+						break;
+				}
+
+				switch (hcase) {
+					case 0:
+						hgroup.horizontalAlign=HorizontalAlign.LEFT;
+						break;
+					case 1:
+						hgroup.horizontalAlign=HorizontalAlign.CENTER;
+						break;
+					default:
+						hgroup.horizontalAlign=HorizontalAlign.RIGHT;
+						break;
+				}
+			}
+		]]>
+	</fx:Script>
+
+	<!--- 상단 공간 -->
+	<s:Group id="top" width="100%" height="100%">
+		<s:Rect width="100%" height="100%">
+			<s:fill>
+				<s:SolidColor color="0xeeeeee"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+
+	<!--- 중앙 공간 : 가로 정렬 -->
+	<s:HGroup id="hgroup" width="100%" horizontalAlign="right">
+
+		<!--- 레이아웃 위치 변경 버튼 -->
+		<s:Button id="layoutChanger" label="Random" click="randomLayout(event)"/>
+
+		<!--- DropDownAnchor -->
+		<dropdown1:DropDownAnchor id="selector" label="{model.label}" popupOpenDuration="0" popupCloseDuration="0">
+			<s:VGroup width="300" height="250" horizontalAlign="right" paddingLeft="10" paddingRight="10" paddingTop="10" paddingBottom="10" gap="5">
+				<s:DropDownList width="100%" dataProvider="{model.list1}" selectedIndex="@{model.list1SelectedIndex}" labelField="label"/>
+				<s:HGroup width="100%" height="100%" gap="5">
+					<s:List width="100%" height="100%" dataProvider="{model.list2}" selectedIndex="@{model.list2SelectedIndex}" labelField="label"/>
+					<s:List width="100%" height="100%" dataProvider="{model.list3}" selectedIndex="@{model.list3SelectedIndex}" labelField="label"/>
+				</s:HGroup>
+				<s:Button label="Confirm" click="selector.close()"/>
+			</s:VGroup>
+		</dropdown1:DropDownAnchor>
+	</s:HGroup>
+
+	<!--- 하단 공간 -->
+	<s:Group id="bottom" width="100%" height="100%">
+		<s:Rect width="100%" height="100%">
+			<s:fill>
+				<s:SolidColor color="0xeeeeee"/>
+			</s:fill>
+		</s:Rect>
+	</s:Group>
+</s:Application>

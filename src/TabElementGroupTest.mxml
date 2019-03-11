@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx"
+			   xmlns:controls="ssen.flexkit.controls.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.managers.IFocusManagerComponent;
+
+			private function getNextComponent():IFocusManagerComponent {
+				if (comp1.text.length > 0 && comp2.text.length > 0 && comp3.text.length > 0 && comp4.text.length > 0 && comp5.text.length > 0) {
+					return comp6;
+				}
+
+				return comp1;
+			}
+		]]>
+	</fx:Script>
+
+	<fx:Declarations>
+		<controls:TabElementGroup id="tabgroup" nextFocusComponentFunction="getNextComponent">
+			<controls:TabElement component="{comp1}"/>
+			<controls:TabElement component="{comp2}"/>
+			<controls:TabElement component="{comp3}"/>
+			<controls:TabElement component="{comp4}"/>
+			<controls:TabElement component="{comp5}"/>
+		</controls:TabElementGroup>
+	</fx:Declarations>
+
+	<s:layout>
+		<s:VerticalLayout paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5" gap="5" horizontalAlign="left" verticalAlign="top"/>
+	</s:layout>
+
+	<s:TextInput id="comp1"/>
+	<s:TextInput id="comp2"/>
+	<s:TextInput id="comp3" focusEnabled="false"/>
+	<s:TextInput id="comp4"/>
+	<s:TextInput id="comp5"/>
+	<s:TextInput id="comp6"/>
+	<s:TextInput id="comp7" focusEnabled="false"/>
+</s:Application>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" initialize="init(event)" xmlns:scroll="ssen.flexkit.scroll.*"
+			   xmlns:devkit="ssen.devkit.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.core.IVisualElement;
+			import mx.events.FlexEvent;
+			
+			import spark.core.SpriteVisualElement;
+			
+			import ssen.common.MathUtils;
+
+			private function getLineBox(minWidth:int=600, maxWidth:int=4500, minHeight:int=600, maxHeight:int=4500):IVisualElement {
+				var s:SpriteVisualElement=new SpriteVisualElement;
+				var g:Graphics=s.graphics;
+				var w:int=MathUtils.rand(minWidth, maxWidth);
+				var h:int=MathUtils.rand(minHeight, maxHeight);
+				g.beginFill(MathUtils.rand(0x000000, 0xffffff));
+				g.drawRect(0, 0, w, h);
+				g.endFill();
+				g.beginFill(0xC5D5FC);
+				g.drawRect(0, 0, w, 10);
+				g.drawRect(0, 10, 10, h - 20);
+				g.drawRect(w - 10, 10, 10, h - 20);
+				g.drawRect(0, h - 10, w, 10);
+				g.endFill();
+
+				s.width=w;
+				s.height=h;
+
+				return s;
+			}
+
+			private function init(event:FlexEvent):void {
+				container.addElement(getLineBox());
+			}
+		]]>
+	</fx:Script>
+
+	<s:Group id="container" width="100%" height="100%" clipAndEnableScrolling="true"/>
+	<s:VScrollBar id="vscroll" height="{container.height - hscroll.height}" right="0" viewport="{container}" skinClass="ssen.flexkit.components.scroll.skins.SimpleVerticalScrollBarSkin"/>
+	<s:HScrollBar id="hscroll" width="{container.width - vscroll.width}" bottom="0" viewport="{container}" skinClass="ssen.flexkit.components.scroll.skins.SimpleHorizontalScrollBarSkin"/>
+</s:Application>

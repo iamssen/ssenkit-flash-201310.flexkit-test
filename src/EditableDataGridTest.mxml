@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" xmlns:mx="library://ns.adobe.com/flex/mx" initialize="init(event)"
+			   xmlns:editable="ssen.flexkit.components.grid.editable.*" xmlns:support="ssen.flexkit.components.grid.editable.support.*" xmlns:grid="ssen.flexkit.components.grid.*"
+			   xmlns:editors="ssen.flexkit.components.grid.editors.*" xmlns:columns="ssen.flexkit.components.grid.columns.*">
+
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			import mx.collections.IList;
+			import mx.events.FlexEvent;
+
+			import ssen.common.MathUtils;
+
+			import test.viewmodels.EditableGridRowModel;
+
+			[Bindable]
+			private var data:ArrayCollection;
+
+			private function init(event:FlexEvent):void {
+				var arr:Array=[];
+
+				var f:int=MathUtils.rand(4, 10);
+				while (--f >= 0) {
+					arr.push(new EditableGridRowModel);
+				}
+
+				var d:ArrayCollection=new ArrayCollection(arr);
+				printData(d);
+				data=d;
+			}
+
+			private function traceData(event:MouseEvent):void {
+				printData(data);
+			}
+
+			private function printData(data:IList):void {
+				trace("====================================================================================");
+				var f:int=-1;
+				var fmax:int=data.length;
+				while (++f < fmax) {
+					trace(data.getItemAt(f));
+				}
+			}
+
+			private function changeData(event:MouseEvent):void {
+				var model:EditableGridRowModel=data.getItemAt(0) as EditableGridRowModel;
+
+				//				data.getItemAt(0).text="changed" + MathUtils.rand(0, 100);
+				//				data.getItemAt(0).toggle=!data.getItemAt(0).toggle;
+				model.setToggle(!model.toggle);
+			}
+
+			private function triggerCallback(data:Object, column:ButtonGridColumn, rowIndex:int):void {
+				trace("EditableDataGridTest.triggerCallback(", data, column, rowIndex, ")");
+			}
+		]]>
+	</fx:Script>
+
+	<s:layout>
+		<s:VerticalLayout paddingTop="10" paddingBottom="10" paddingLeft="10" paddingRight="10" gap="10" horizontalAlign="left" verticalAlign="top"/>
+	</s:layout>
+
+	<grid:LinedDataGrid id="grid" width="100%" height="100%" dataProvider="{data}" editable="true" focusEnabled="false">
+		<grid:columns>
+			<s:ArrayList>
+				<columns:RowSelectionalGridColumn headerText="Radio"/>
+				<columns:ToggleGridColumn dataField="toggle" headerText="Toggle"/>
+				<columns:BasicGridColumn dataField="text" headerText="Text" textAlign="center"/>
+				<columns:NumberGridColumn dataField="number" minimumField="minimum" maximumField="maximum" headerText="Number"/>
+				<columns:NumberGridColumn dataField="numeric" minimumField="minimum" maximumField="maximum" headerText="NumericStepper"
+										  itemRenderer="ssen.flexkit.components.grid.renderers.SpinnerGridRenderer"
+										  itemEditor="ssen.flexkit.components.grid.editors.NumericStepperGridEditor"/>
+				<columns:SelectionalGridColumn dataField="dropdownlist" dataProviderField="dropdownlistList" headerText="DropDownList"/>
+				<columns:ButtonGridColumn headerText="Button" label="LABEL BUTTON" callback="triggerCallback" textAlign="right"/>
+			</s:ArrayList>
+		</grid:columns>
+	</grid:LinedDataGrid>
+
+	<s:HGroup gap="10">
+		<s:Button label="trace data" click="traceData(event)"/>
+		<s:Button label="change data" click="changeData(event)"/>
+	</s:HGroup>
+</s:Application>

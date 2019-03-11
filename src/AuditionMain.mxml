@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" initialize="init(event)">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			import ssen.devkit.Audition;
+			
+			import test.FlagControl;
+
+			private function init(event:FlexEvent):void {
+				var audition:Audition=new Audition;
+				audition.add(FlagControl);
+				audition.start(this);
+			}
+		]]>
+	</fx:Script>
+
+</s:Application>
